@@ -11,7 +11,7 @@ Use o módulo `customers` como referência exata de padrão, nas duas pontas:
 1. Entidade TypeORM com `id` uuid, `createdAt` e `updatedAt`.
 2. DTOs com class-validator (`Create`, `Update` e `List...Query` com paginação).
 3. Service com listagem paginada e busca, `findOne` com `NotFoundException`.
-4. Controller REST; exclusão restrita a `@Roles(UserRole.ADMIN)`.
+4. Controller REST com `@ApiTags` e `@ApiBearerAuth()`; exclusão restrita a `@Roles(UserRole.ADMIN)`.
 5. Registre o módulo em `app.module.ts`.
 
 **Frontend (`frontend/src/app/features/<entidade>/`)**

@@ -1,3 +1,4 @@
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, NotFoundException } from '@nestjs/common';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Roles } from '../common/decorators/roles.decorator.js';
@@ -5,6 +6,8 @@ import type { JwtPayload } from '../auth/auth.types.js';
 import { UserRole } from './user.entity.js';
 import { UsersService } from './users.service.js';
 
+@ApiTags('users')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private readonly users: UsersService) {}

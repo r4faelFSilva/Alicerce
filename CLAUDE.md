@@ -10,7 +10,7 @@ Monorepo simples com duas pastas independentes:
 | Onde | Comando | O quê |
 |---|---|---|
 | raiz | `docker compose up db` | Sobe só o PostgreSQL |
-| backend | `npm run start:dev` | API em http://localhost:3000/api |
+| backend | `npm run start:dev` | API em http://localhost:3000/api (Swagger em /api/docs) |
 | backend | `npm run build` / `npm run test:e2e` | Build / testes e2e (precisa do banco) |
 | frontend | `npm start` | App em http://localhost:4200 |
 | frontend | `npx ng build` / `npx ng test --watch=false` | Build / testes |
@@ -21,6 +21,8 @@ Monorepo simples com duas pastas independentes:
 - Backend é ESM: imports relativos terminam em `.js`; testes usam Vitest (`vi.fn()`).
 - Toda rota é protegida por padrão (`JwtAuthGuard` global). Use `@Public()` para liberar
   e `@Roles(UserRole.ADMIN)` para restringir por perfil.
+- Swagger é gerado pelo plugin do Nest a partir dos DTOs; use `@ApiTags` nos controllers e
+  `@ApiBearerAuth()` só onde a rota exige token.
 - Validação com class-validator + `ValidationPipe` global (`whitelist` + `forbidNonWhitelisted`).
 - Instalar pacotes no backend: `npm i --legacy-peer-deps <pacote>`.
 - Frontend: componentes standalone, `inject()`, signals, `rxResource` para dados,

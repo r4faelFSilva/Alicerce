@@ -16,12 +16,13 @@
   } @else if (data.error()) {
     <div class="alert">Erro ao carregar clientes.</div>
   } @else {
-    <table class="table">
+    <div class="table-wrap">
+    <table class="table table-cards">
       <thead>
         <tr>
           <th>Nome</th>
           <th>Documento</th>
-          <th>E-mail</th>
+          <th class="hide-sm">E-mail</th>
           <th>Status</th>
           <th></th>
         </tr>
@@ -29,9 +30,9 @@
       <tbody>
         @for (c of data.value()?.items; track c.id) {
           <tr>
-            <td>{{ c.name }}</td>
-            <td>{{ c.document ?? '—' }}</td>
-            <td>{{ c.email ?? '—' }}</td>
+            <td class="cell-name">{{ c.name }}</td>
+            <td class="nowrap cell-muted">{{ c.document ?? '—' }}</td>
+            <td class="hide-sm">{{ c.email ?? '—' }}</td>
             <td>
               <span class="badge" [class.badge-off]="!c.active">
                 {{ c.active ? 'Ativo' : 'Inativo' }}
@@ -49,6 +50,7 @@
         }
       </tbody>
     </table>
+    </div>
 
     <div class="pagination">
       <button class="btn btn-sm" [disabled]="page() === 1" (click)="page.set(page() - 1)">Anterior</button>

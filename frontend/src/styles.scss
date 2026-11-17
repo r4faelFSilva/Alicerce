@@ -66,3 +66,25 @@ input:not([type='checkbox']) {
   .full { grid-column: 1 / -1; } }
 .form-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
 @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+.table-wrap { overflow-x: auto; }
+.nowrap { white-space: nowrap; }
+@media (max-width: 600px) {
+  .hide-sm { display: none; }
+  .page-header { gap: 0.75rem; }
+  /* Em telas pequenas, cada linha vira um cartão */
+  .table-cards {
+    thead { display: none; }
+    tr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.35rem 0.75rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    td { padding: 0; border: 0; }
+    .cell-name { font-weight: 600; }
+    .cell-muted { color: var(--muted); font-size: 0.9rem; grid-column: 1; }
+    .actions { grid-column: 1 / -1; justify-content: flex-start; margin-top: 0.25rem; }
+  }
+}

@@ -1,3 +1,4 @@
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
@@ -15,6 +16,8 @@ import { UserRole } from '../users/user.entity.js';
 import { CustomersService } from './customers.service.js';
 import { CreateCustomerDto, ListCustomersQuery, UpdateCustomerDto } from './dto/customer.dto.js';
 
+@ApiTags('customers')
+@ApiBearerAuth()
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customers: CustomersService) {}

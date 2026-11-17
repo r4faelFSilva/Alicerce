@@ -1,3 +1,4 @@
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Public } from '../common/decorators/public.decorator.js';
@@ -5,6 +6,7 @@ import { AuthService } from './auth.service.js';
 import type { JwtPayload } from './auth.types.js';
 import { LoginDto, RefreshDto, RegisterDto } from './dto/auth.dto.js';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly auth: AuthService) {}
@@ -29,6 +31,7 @@ export class AuthController {
     return this.auth.refresh(dto.refreshToken);
   }
 
+  @ApiBearerAuth()
   @Post('logout')
   @HttpCode(204)
   async logout(@CurrentUser() user: JwtPayload) {
