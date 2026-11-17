@@ -1,0 +1,59 @@
+<div class="page-header">
+  <h1>Clientes</h1>
+  <a class="btn btn-primary" routerLink="novo">Novo cliente</a>
+</div>
+
+<div class="card">
+  <input
+    class="search"
+    type="search"
+    placeholder="Buscar por nome ou documento..."
+    (input)="onSearch($any($event.target).value)"
+  />
+
+  @if (data.isLoading()) {
+    <p class="muted">Carregando...</p>
+  } @else if (data.error()) {
+    <div class="alert">Erro ao carregar clientes.</div>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Documento</th>
+          <th>E-mail</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of data.value()?.items; track c.id) {
+          <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.document ?? '—' }}</td>
+            <td>{{ c.email ?? '—' }}</td>
+            <td>
+              <span class="badge" [class.badge-off]="!c.active">
+                {{ c.active ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+            <td class="actions">
+              <a class="btn btn-sm" [routerLink]="[c.id]">Editar</a>
+              @if (auth.isAdmin()) {
+                <button class="btn btn-sm btn-danger" (click)="remove(c)">Excluir</button>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5" class="muted">Nenhum cliente encontrado.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <button class="btn btn-sm" [disabled]="page() === 1" (click)="page.set(page() - 1)">Anterior</button>
+      <span>Página {{ page() }} de {{ totalPages() }}</span>
+      <button class="btn btn-sm" [disabled]="page() >= totalPages()" (click)="page.set(page() + 1)">Próxima</button>
+    </div>
+  }
+</div>

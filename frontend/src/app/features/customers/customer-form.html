@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>{{ id() ? 'Editar cliente' : 'Novo cliente' }}</h1>
+</div>
+
+<form class="card form-grid" [formGroup]="form" (ngSubmit)="save()">
+  <label class="full">
+    Nome *
+    <input formControlName="name" />
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <small class="field-error">Nome é obrigatório.</small>
+    }
+  </label>
+  <label>
+    CPF / CNPJ
+    <input formControlName="document" />
+  </label>
+  <label>
+    Telefone
+    <input formControlName="phone" />
+  </label>
+  <label class="full">
+    E-mail
+    <input type="email" formControlName="email" />
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="field-error">E-mail inválido.</small>
+    }
+  </label>
+  <label class="checkbox">
+    <input type="checkbox" formControlName="active" /> Ativo
+  </label>
+
+  @if (error()) {
+    <div class="alert full">{{ error() }}</div>
+  }
+
+  <div class="form-actions full">
+    <a class="btn" routerLink="/clientes">Cancelar</a>
+    <button class="btn btn-primary" type="submit" [disabled]="saving()">
+      {{ saving() ? 'Salvando...' : 'Salvar' }}
+    </button>
+  </div>
+</form>

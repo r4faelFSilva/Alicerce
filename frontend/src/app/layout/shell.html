@@ -1,0 +1,31 @@
+<div class="shell" [class.open]="menuOpen()">
+  <aside class="sidebar">
+    <div class="brand">Alicerce</div>
+    <nav>
+      @for (item of nav; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: item.exact }"
+          (click)="menuOpen.set(false)"
+          >{{ item.label }}</a
+        >
+      }
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="btn menu-btn" (click)="menuOpen.set(!menuOpen())" aria-label="Menu">☰</button>
+      <span class="spacer"></span>
+      <span class="user">
+        {{ auth.user()?.name }}
+        <span class="badge">{{ auth.user()?.role }}</span>
+      </span>
+      <button class="btn" (click)="auth.logout()">Sair</button>
+    </header>
+    <section class="content">
+      <router-outlet />
+    </section>
+  </div>
+</div>
